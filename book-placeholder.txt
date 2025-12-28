@@ -1,0 +1,1 @@
+/* Place your book image as 'book.jpg' in this folder */

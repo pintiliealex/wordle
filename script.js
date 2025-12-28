@@ -1,9 +1,7 @@
 const WORD_LENGTH = 5;
 const MAX_GUESSES = 6;
 
-const WORDS = ['APPLE', 'BREAD', 'CHAIR', 'DANCE', 'EARTH', 'FLAME', 'GRAPE', 'HOUSE', 'IMAGE', 'JUICE', 'KNIFE', 'LEMON', 'MOUSE', 'NIGHT', 'OCEAN', 'PIANO', 'QUEEN', 'RIVER', 'STONE', 'TIGER', 'UNCLE', 'VOICE', 'WATER', 'YOUTH', 'ZEBRA'];
-
-let targetWord = WORDS[Math.floor(Math.random() * WORDS.length)];
+let targetWord = ROMANIAN_WORDS[Math.floor(Math.random() * ROMANIAN_WORDS.length)];
 let currentRow = 0;
 let currentTile = 0;
 let currentGuess = '';
@@ -88,7 +86,12 @@ function deleteLetter() {
 
 function submitGuess() {
     if (currentTile < WORD_LENGTH) {
-        showMessage('Not enough letters');
+        showMessage('Nu sunt destule litere');
+        return;
+    }
+
+    if (!ROMANIAN_WORDS.includes(currentGuess)) {
+        showMessage('Cuvant invalid');
         return;
     }
 
@@ -96,7 +99,7 @@ function submitGuess() {
     
     setTimeout(() => {
         if (currentGuess === targetWord) {
-            showMessage('Congratulations! You won!');
+            showMessage('Felicitari! Ai castigat!');
             gameOver = true;
             return;
         }
@@ -106,7 +109,7 @@ function submitGuess() {
         currentGuess = '';
 
         if (currentRow >= MAX_GUESSES) {
-            showMessage(`Game Over! The word was ${targetWord}`);
+            showMessage(`Joc terminat! Cuvantul era ${targetWord}`);
             gameOver = true;
         }
     }, WORD_LENGTH * 300);
